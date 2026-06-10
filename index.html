@@ -161,7 +161,7 @@
     /* Hero */
     .hero {
       text-align: center;
-      padding: 160px 20px 80px;
+      padding: 180px 20px 80px;
       background: var(--hero-bg);
     }
 
@@ -353,6 +353,115 @@
     }
     .panel.soft { background: var(--soft); }
 
+    /* Consolidated .reason-card */
+    .reason-card {
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr);
+      gap: 14px;
+      padding: 18px;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .story-icon,
+    .step-icon {
+      width: 42px;
+      height: 42px;
+      display: inline-grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border-radius: 12px;
+      color: #ffffff;
+      font-size: 1rem;
+    }
+
+    .reason-card.audio .story-icon { 
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(6, 182, 212, 0.15)); 
+      color: #3b82f6; 
+    }
+    .reason-card.entity .story-icon { 
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(239, 68, 68, 0.15)); 
+      color: #ea580c; 
+    }
+    .reason-card.local .story-icon { 
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(99, 102, 241, 0.15)); 
+      color: #6366f1; 
+    }
+    
+    .reason-card p {
+      color: var(--muted);
+      font-size: 0.98rem;
+      line-height: 1.6;
+    }
+
+    .motivation-map {
+      display: grid;
+      gap: 24px;
+    }
+
+    .solution-rail {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .solution-step {
+      padding: 24px;
+      background: linear-gradient(180deg, #ffffff, #fbfdff);
+    }
+
+    .solution-step:first-child {
+      border-right: 1px solid var(--soft-line);
+    }
+
+    .solution-step:last-child {
+      border-left: 1px solid var(--soft-line);
+    }
+
+    .solution-step .small-label {
+      margin-bottom: 10px;
+    }
+
+    .solution-step p {
+      color: var(--muted);
+      font-size: 0.98rem;
+      line-height: 1.6;
+    }
+
+    .solution-step.script .step-icon { 
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(20, 184, 166, 0.15)); 
+      color: #10b981; 
+    }
+    .solution-step.clue .step-icon { 
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(168, 85, 247, 0.15)); 
+      color: #6366f1; 
+    }
+
+    .solution-head {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+
+    .solution-arrow {
+      display: grid;
+      place-items: center;
+      min-width: 70px;
+      color: var(--accent);
+      background: linear-gradient(180deg, #eef2ff, #ffffff);
+      font-size: 1.35rem;
+      transition: all 0.3s ease;
+    }
+  
     .problem-card { border-top: 4px solid var(--amber); }
     .contribution-card { border-top: 4px solid var(--accent); }
 
@@ -518,34 +627,112 @@
       background: var(--accent-soft);
     }
 
-    /* Taxonomy Table */
-    .taxonomy-wrapper {
-      overflow-x: auto;
+    /* Taxonomy Accordion */
+    .taxonomy-accordion {
+      display: grid;
+      gap: 16px;
+    }
+
+    .taxonomy-item {
       border: 1px solid var(--line);
       border-radius: 16px;
       background: var(--paper);
+      overflow: hidden;
       box-shadow: var(--shadow);
     }
-    .taxonomy-table {
-      width: 100%; min-width: 800px;
-      border-collapse: collapse; table-layout: fixed;
+
+    .taxonomy-item summary {
+      display: flex !important;
+      justify-content: space-between;
+      align-items: center;
+      padding: 22px 28px;
+      cursor: pointer;
+      list-style: none;
     }
-    .taxonomy-table th:nth-child(1), .taxonomy-table td:nth-child(1) { width: 18%; }
-    .taxonomy-table th:nth-child(2), .taxonomy-table td:nth-child(2) { width: 30%; }
-    .taxonomy-table th:nth-child(3), .taxonomy-table td:nth-child(3) { width: 52%; }
-    
-    .taxonomy-table th, .taxonomy-table td {
-      padding: 16px 20px;
+
+    .taxonomy-item summary::-webkit-details-marker {
+      display: none !important;
+    }
+
+    .taxonomy-arrow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      font-size: 1.5rem;
+      font-weight: 400;  
+      color: var(--accent);
+      line-height: 1;
+      align-self: center;
+      user-select: none;
+      transition: all 0.2s ease;
+    }
+
+    .taxonomy-arrow::before {
+      content: "+";
+    }
+
+    .taxonomy-item[open] .taxonomy-arrow::before {
+      content: "\2212";
+    }
+
+    .taxonomy-item[open] .taxonomy-arrow {
+      transform: none !important;
+    }
+
+    .taxonomy-header h3 {
+      margin: 0;
+      color: var(--accent);
+      font-size: 1.25rem;
+      font-weight: 800;
+    }
+
+    .taxonomy-header p {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .taxonomy-content {
+      border-top: 1px solid var(--line);
+      padding: 0;
+    }
+
+    .taxonomy-content table {
+      width: 100%;
+      min-width: auto;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    .taxonomy-content td {
       text-align: left;
-      vertical-align: middle;
+      padding: 16px 20px;
+      font-size: 0.95rem; 
+      line-height: 1.6;
+      color: var(--muted); 
       border-bottom: 1px solid var(--soft-line);
-      border-right: 1px solid var(--soft-line);
-      font-size: 0.95rem; color: var(--muted); line-height: 1.6;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      white-space: normal;
     }
-    .taxonomy-table th:last-child, .taxonomy-table td:last-child { border-right: none; }
-    .taxonomy-table th { background: var(--soft); color: var(--ink); font-weight: 800; border-bottom: 1px solid var(--line); }
-    .taxonomy-table tr:last-child td { border-bottom: none; }
-    .taxonomy-table td.level-cell { color: var(--accent); font-weight: 800; background: var(--paper); }
+
+    .taxonomy-content tr:last-child td {
+      border-bottom: none;
+    }
+
+    .taxonomy-content td:first-child {
+      width: 35%;
+      font-weight: 600;
+      color: var(--muted);
+      padding-left: 28px;
+    }
+
+    .taxonomy-content td:last-child {
+      padding-right: 28px;
+    }
 
     /* Image Grid */
     .image-grid { display: grid; grid-template-columns: minmax(0, 0.529fr) minmax(0, 0.471fr); gap: 20px; align-items: center; }
@@ -685,6 +872,37 @@
       .case-figure img { border-radius: 0; border-left: 0; border-right: 0; }
       .section { padding: 60px 20px; }
       th, td { padding: 12px 10px; }
+
+      .solution-rail {
+        grid-template-columns: 1fr;
+      }
+      .solution-step:first-child {
+        border-right: none;
+        border-bottom: 1px solid var(--soft-line);
+      }
+      .solution-step:last-child {
+        border-left: none;
+        border-top: 1px solid var(--soft-line);
+      }
+      .solution-arrow {
+        min-height: 40px;
+        transform: none !important; 
+      }
+      .solution-arrow i {
+        transform: rotate(90deg);
+      }
+      
+      .taxonomy-content td {
+        display: block;
+        width: 100% !important;
+      }
+      .taxonomy-content td:first-child {
+        border-bottom: none;
+        padding-bottom: 4px;
+      }
+      .taxonomy-content td:last-child {
+        padding-top: 0;
+      }
     }
     @media (max-width: 500px) {
       .flow { grid-template-columns: 1fr; }
@@ -757,44 +975,62 @@
         </div>
         <p class="section-summary">Existing pipelines often split videos into short clips, caption audio and vision separately, and generate QA directly from long descriptions.</p>
       </div>
-      <p class="lead">While highly scalable, this paradigm weakens the deep temporal connections and multimodal interactions that complex audio-visual comprehension demands. OmniVideo-100K is designed to address three key problems in current data generation pipelines.</p>
+      <p class="lead">While highly scalable, this paradigm weakens the deep temporal connections and multimodal interactions that complex audio-visual comprehension demands, leading to three major problems:</p>
       
-      <div class="grid-3 spaced">
-        <div class="problem-card card">
-          <span class="small-label">Problem 01</span>
-          <h3>Broken Audio-Visual Associations</h3>
-          <p class="body-text">Separate audio and visual descriptions sever the inherent association between a sound, its visual source, and their temporal synchronization.</p>
-        </div>
-        <div class="problem-card card">
-          <span class="small-label">Problem 02</span>
-          <h3>Incoherent Visual Narratives</h3>
-          <p class="body-text">Independent segment captions often cause inconsistent entity references across segments, making it difficult for LLMs to maintain coherent narratives.</p>
-        </div>
-        <div class="problem-card card">
-          <span class="small-label">Problem 03</span>
-          <h3>Localized QA Synthesis</h3>
-          <p class="body-text">Single-pass QA generation from long captions frequently restricts questions to localized events, failing to capture long-term temporal connections and complex cross-modal synergy.</p>
-        </div>
+      <div class="grid-3 spaced" aria-label="Limitations of caption-first QA">
+          <div class="reason-card audio">
+            <span class="story-icon" style="flex-shrink: 0;"><i class="fas fa-volume-high"></i></span>
+            <div>
+              <h3>Severed Audio & Vision</h3>
+              <p>Sound-source associations break.</p>
+            </div>
+          </div>
+          <div class="reason-card entity">
+            <span class="story-icon"><i class="fas fa-user-group"></i></span>
+            <div>
+              <h3>Incoherent Narratives</h3>
+              <p>Entity references drift across clips.</p>
+            </div>
+          </div>
+          <div class="reason-card local">
+            <span class="story-icon"><i class="fas fa-link"></i></span>
+            <div>
+              <h3>Localized QA</h3>
+              <p>QA is often limited to local events.</p>
+            </div>
+          </div>
       </div>
       
-      <div class="grid-3 spaced">
-        <div class="contribution-card card">
-          <span class="small-label">Contribution</span>
-          <h3>Structured Scripts</h3>
-          <p class="body-text">Transform videos into structured scripts comprising summaries, main entity lists, timestamped audio, speaker labels, and coherent visual narratives.</p>
-        </div>
-        <div class="contribution-card card">
-          <span class="small-label">Contribution</span>
-          <h3>Clue-Guided QA Generation</h3>
-          <p class="body-text">Prompt models to mine cross-segment and cross-modality clues, and then construct QA pairs anchored to these evidence chains.</p>
-        </div>
-        <div class="contribution-card card">
-          <span class="small-label">Contribution</span>
-          <h3>100K Train & Verified Test</h3>
-          <p class="body-text">Build OmniVideo-100K for instruction tuning, alongside OmniVideo-Test, a 505-sample test set manually verified for cross-modal dependency.</p>
+      <div class="motivation-map spaced">
+          <div class="solution-rail" aria-label="OmniVideo response">
+            <div class="solution-step script">
+              <div class="solution-head">
+                <span class="step-icon"><i class="fas fa-scroll"></i></span>
+                <div>
+                  <span class="small-label">Step 01</span>
+                  <h3>Script with Main Entity List</h3>
+                </div>
+              </div>
+              <p>Use the main entity list as a global prior to integrate fragmented audio-visual information into a coherent, structured script.</p>
+            </div>
+            <div class="solution-arrow" aria-hidden="true"><i class="fas fa-arrow-right"></i></div>
+            <div class="solution-step clue">
+              <div class="solution-head">
+                <span class="step-icon"><i class="fas fa-route"></i></span>
+                <div>
+                  <span class="small-label">Step 02</span>
+                  <h3>QA from Evidence Clues</h3>
+                </div>
+              </div>
+              <p>Instead of directly generating QA from the long description, the model is first asked to mine the audio-visual cues.</p>
+            </div>
+          </div>
+
+          <p class="caption" style="text-align: center; margin-top: -10px;">
+            OmniVideo-100K
+          </p>
         </div>
       </div>
-    </div>
   </section>
 
   <!-- Method Section -->
@@ -808,17 +1044,6 @@
         <p class="section-summary">The pipeline formalizes the raw video into a structured text representation, enabling LLMs to mine evidence chains before QA synthesis.</p>
       </div>
 
-      <div class="flow" aria-label="Pipeline steps">
-        <div class="flow-step"><span>01</span><strong>Main Entity List</strong><p>Identify primary active entities in the raw video and assign unique identifiers to establish a global prior.</p></div>
-        <div class="flow-step"><span>02</span><strong>Video Summary</strong><p>Generate a narrative summary of the raw video, with entity references constrained by the Main Entity List.</p></div>
-        <div class="flow-step"><span>03</span><strong>Timestamped Audio</strong><p>Transcribe speech timestamps from the audio stream, and record non-speech sounds and music descriptions.</p></div>
-        <div class="flow-step"><span>04</span><strong>Speaker Labeling</strong><p>Tag speech with speakers by analyzing the raw video and referencing the Main Entity List to link modalities.</p></div>
-        <div class="flow-step"><span>05</span><strong>Video Segmentation</strong><p>Partition the raw video into segments based on generated speech timestamp boundaries.</p></div>
-        <div class="flow-step"><span>06</span><strong>Visual Narrative</strong><p>Generate segment-wise visual captions from the video frames, using the Main Entity List to keep references consistent.</p></div>
-        <div class="flow-step"><span>07</span><strong>Global Clue Mining</strong><p>Scan the integrated script to extract cross-modal and cross-segment clues to build task-specific evidence chains.</p></div>
-        <div class="flow-step"><span>08</span><strong>Locally Focused QA</strong><p>Construct QA pairs by focusing model on the relevant video segments and mined clues.</p></div>
-      </div>
-
       <div class="method-grid">
         <div class="figure-frame">
           <img src="assets/pipeline.png" alt="Overview of the OmniVideo-100K data generation pipeline" loading="lazy">
@@ -826,11 +1051,25 @@
         <div class="stack">
           <div class="panel soft">
             <h3>Entity-Anchored Video Scripting</h3>
-            <p class="body-text">Transform raw videos into entity-anchored scripts, comprising a summary, a main entity list, and structured segment-wise descriptions that integrate speech, sounds, and visual information. Using consistent identifiers (<span class="hl-orange">orange</span> and <span class="hl-green">green</span> text) from the main entity list ensures narrative coherence across different segments and associates speech content with visual entities.</p>
+            <div style="display: flex; gap: 12px; align-items: start; margin-bottom: 8px;">
+              <i class="fa-regular fa-circle" style="color: var(--accent); font-size: 0.65rem; margin-top: 9px; flex-shrink: 0;"></i>
+              <p class="body-text" style="margin: 0;">Script: a summary, a main entity list, and structured segment-wise descriptions that integrate speech, sounds, and visual information.</p>
+            </div>
+            <div style="display: flex; gap: 12px; align-items: start;">
+              <i class="fa-regular fa-circle" style="color: var(--accent); font-size: 0.65rem; margin-top: 9px; flex-shrink: 0;"></i>
+              <p class="body-text" style="margin: 0;">Use consistent identifiers (<span class="hl-orange">orange</span> and <span class="hl-green">green</span> text) from the main entity list to ensure narrative coherence across clips and associate speech content with visual entities.</p>
+            </div>
           </div>
           <div class="panel soft">
             <h3>Clue-Guided QA Generation</h3>
-            <p class="body-text">Prompt LLMs to mine cross-segment and cross-modal clues from the script, then produce QA pairs based on the clues and relevant segments.</p>
+            <div style="display: flex; gap: 12px; align-items: start; margin-bottom: 8px;">
+              <i class="fa-regular fa-circle" style="color: var(--accent); font-size: 0.65rem; margin-top: 9px; flex-shrink: 0;"></i>
+              <p class="body-text" style="margin: 0;">Mine cross-segment and cross-modal clues from the script.</p>
+            </div>
+            <div style="display: flex; gap: 12px; align-items: start;">
+              <i class="fa-regular fa-circle" style="color: var(--accent); font-size: 0.65rem; margin-top: 9px; flex-shrink: 0;"></i>
+              <p class="body-text" style="margin: 0;">Produce QA pairs based on the clues and relevant segments.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -903,61 +1142,93 @@
 
       <div class="panel spaced">
         <span class="small-label">Task taxonomy</span>
-        <div class="taxonomy-wrapper">
-          <table class="taxonomy-table" aria-label="Ten audio-visual tasks">
-            <thead>
-              <tr>
-                <th>Cognitive Level</th>
-                <th>Task</th>
-                <th>Definition</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td rowspan="2" class="level-cell">Alignment</td>
-                <td>Fine-Grained Perception</td>
-                <td>Perceive synchronized cross-modal details from given unimodal cues.</td>
-              </tr>
-              <tr>
-                <td>Scene Transformation Detection</td>
-                <td>Identify synchronized visual shifts using audio cues.</td>
-              </tr>
-              <tr>
-                <td rowspan="5" class="level-cell">Understanding</td>
-                <td>Context Understanding</td>
-                <td>Identify semantic associations between audio and visual elements.</td>
-              </tr>
-              <tr>
-                <td>Comparison</td>
-                <td>Compare target states or attributes across different timestamps.</td>
-              </tr>
-              <tr>
-                <td>Sentiment Analysis</td>
-                <td>Analyze character inner states via audio-visual cues.</td>
-              </tr>
-              <tr>
-                <td>Event Sequence Ordering</td>
-                <td>Restore the correct temporal order of jumbled events.</td>
-              </tr>
-              <tr>
-                <td>Summarization</td>
-                <td>Generate an audio-visual summary for specific events.</td>
-              </tr>
-              <tr>
-                <td rowspan="3" class="level-cell">Reasoning</td>
-                <td>Causal Reasoning</td>
-                <td>Infer underlying causes of specific events.</td>
-              </tr>
-              <tr>
-                <td>Future Prediction</td>
-                <td>Predict upcoming plot developments from current content.</td>
-              </tr>
-              <tr>
-                <td>Hypothetical Reasoning</td>
-                <td>Propose what-if scenarios to reinterpret video content.</td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="taxonomy-accordion">
+
+          <details class="taxonomy-item">
+            <summary>
+              <div class="taxonomy-header">
+                <h3>Alignment</h3>
+                <p>Focuse on perceiving and synchronizing audio and vision along the timeline.</p>
+              </div>
+              <span class="taxonomy-arrow"></span>
+            </summary>
+
+            <div class="taxonomy-content">
+              <table>
+                <tr>
+                  <td>Fine-Grained Perception</td>
+                  <td>Perceive synchronized cross-modal details from given unimodal cues.</td>
+                </tr>
+                <tr>
+                  <td>Scene Transformation Detection</td>
+                  <td>Identify synchronized visual shifts using audio cues.</td>
+                </tr>
+              </table>
+            </div>
+          </details>
+
+          <details class="taxonomy-item">
+            <summary>
+              <div class="taxonomy-header">
+                <h3>Understanding</h3>
+                <p>Emphasize semantic analysis, linking cross-modal information to grasp narratives.</p>
+              </div>
+              <span class="taxonomy-arrow"></span>
+            </summary>
+
+            <div class="taxonomy-content">
+              <table>
+                <tr>
+                  <td>Context Understanding</td>
+                  <td>Identify semantic associations between audio and visual elements.</td>
+                </tr>
+                <tr>
+                  <td>Comparison</td>
+                  <td>Compare target states or attributes across different timestamps.</td>
+                </tr>
+                <tr>
+                  <td>Sentiment Analysis</td>
+                  <td>Analyze character inner states via audio-visual cues.</td>
+                </tr>
+                <tr>
+                  <td>Event Sequence Ordering</td>
+                  <td>Restore the correct temporal order of jumbled events.</td>
+                </tr>
+                <tr>
+                  <td>Summarization</td>
+                  <td>Generate an audio-visual summary for specific events.</td>
+                </tr>
+              </table>
+            </div>
+          </details>
+
+          <details class="taxonomy-item">
+            <summary>
+              <div class="taxonomy-header">
+                <h3>Reasoning</h3>
+                <p>Advanced cognitive abilities requiring logical deduction and abstract thinking.</p>
+              </div>
+              <span class="taxonomy-arrow"></span>
+            </summary>
+
+            <div class="taxonomy-content">
+              <table>
+                <tr>
+                  <td>Causal Reasoning</td>
+                  <td>Infer underlying causes of specific events.</td>
+                </tr>
+                <tr>
+                  <td>Future Prediction</td>
+                  <td>Predict upcoming plot developments from current content.</td>
+                </tr>
+                <tr>
+                  <td>Hypothetical Reasoning</td>
+                  <td>Propose what-if scenarios to reinterpret video content.</td>
+                </tr>
+              </table>
+            </div>
+          </details>
+
         </div>
       </div>
 
@@ -1051,7 +1322,7 @@
 
       <!-- Tab: Generalization -->
       <div class="tab-panel" data-panel="generalization" role="tabpanel">
-        <p class="result-note">Models fine-tuned on OmniVideo-100K exhibit strong generalization, achieving consistent improvements across audio-visual benchmarks (Daily-Omni, OmniVideoBench, JointAVBench, and FutureOmni) while maintaining comparable performance on general video benchmarks.</p>
+        <p class="result-note">Models fine-tuned on OmniVideo-100K exhibit strong generalization, achieving consistent improvements across audio-visual benchmarks (Daily-Omni, OmniVideoBench, JointAVBench, and FutureOmni) while maintaining comparable performance on general video benchmarks (Video-MME ans Video-MME-v2).</p>
         <div class="table-scroll">
           <table>
             <thead><tr><th>Model</th><th>Size</th><th>Video-MME<sub>short</sub></th><th>Video-MME-v2</th><th>Daily-Omni</th><th>OmniVideoBench</th><th>JointAVBench</th><th style="width: 12%;">FutureOmni</th></tr></thead>
